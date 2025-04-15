@@ -1,6 +1,5 @@
 
             <section id="blog-details" class="blog-details section">
-              <div class="container">
   
                 <article class="article">
   
@@ -74,6 +73,4 @@
                   </div><!-- End meta bottom -->
   
                 </article>
-  
-              </div>
             </section><!-- /Blog Details Section -->
