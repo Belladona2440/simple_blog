@@ -17,55 +17,40 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-8">
-        <!-- Blog Posts Section -->
         <section id="blog-posts" class="blog-posts section mb-4">
           <div class="container">
             <div class="row gy-4">
+              @foreach($posts as $post)
               <div class="col-lg-6">
                 <article class="position-relative h-100">
-                  <div class="post-img position-relative overflow-hidden">
-                    <img src="{{ asset('storage/blog-img.jpg') }}" class="img-fluid" alt="">
-                    <span class="post-date">March 19</span>
+                  <div class="post-img position-relative overflow-hidden" style="height: 250px;">
+                    <img src="{{ asset('storage/'.$post->bg_img) }}" class="img-fluid w-100 h-100" style="object-fit: cover;" alt="thumbnail">
+                    <span class="post-date">{{ $post->created_at->format('F j, Y') }}</span>
                   </div>
                   <div class="post-content d-flex flex-column">
-                    <h3 class="post-title">Nisi magni odit consequatur autem nulla dolorem</h3>
+                    <h3 class="post-title">{{ Str::limit($post->title, 50, '...') }}</h3>
                     <div class="meta d-flex align-items-center">
                       <div class="d-flex align-items-center">
-                        <i class="bi bi-person"></i> <span class="ps-2">Julia Parker</span>
+                        <i class="bi bi-person"></i> <span class="ps-2">{{ $post['author'] }}</span>
                       </div>
-                      <span class="px-3 text-black-50">/</span>
+                      <span class="px-3 text-black-50">|</span>
                       <div class="d-flex align-items-center">
-                        <i class="bi bi-folder2"></i> <span class="ps-2">Economics</span>
+                        <i class="bi bi-folder2"></i> <span class="ps-2">{{ $post['category'] }}</span>
                       </div>
                     </div>
-                    <p>
-                      Incidunt voluptate sit temporibus aperiam. Quia vitae aut sint ullam quis illum voluptatum et. Quo libero rerum voluptatem pariatur nam.
-                    </p>
+                    <p>{{ Str::limit($post->content, 100, '...')}}</p>
                     <hr>
                     <x-post-readmore></x-post-readmore>
                   </div>
                 </article>
-              </div><!-- End post list item -->
+              </div>
+              @endforeach
+              <div>
+                {{ $posts->links('pagination::bootstrap-5') }}
+              </div>
             </div>
           </div>
-        </section><!-- /Blog Posts Section -->
-        <!-- Blog Pagination Section -->
-        <section id="blog-pagination" class="blog-pagination section">
-          <div class="container  mb-4">
-            <div class="d-flex justify-content-center">
-              <ul>
-                <li><a href="#"><i class="bi bi-chevron-left"></i></a></li>
-                <li><a href="#">1</a></li>
-                <li><a href="#" class="active">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li>...</li>
-                <li><a href="#">10</a></li>
-                <li><a href="#"><i class="bi bi-chevron-right"></i></a></li>
-              </ul>
-            </div>
-          </div>
-        </section><!-- /Blog Pagination Section -->
+        </section>
       </div>
       <div class="col-lg-4 sidebar">
         <div class="widgets-container">
