@@ -7,25 +7,41 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
+  public function index() {
+    $posts = Post::latest()->paginate(4);
+    //$posts = Post::orderBy('created_at', 'desc')->paginate(4);
+    return view('home', compact('posts'));
+  }
   public function create() {
     return view('posts.create');
   }
 
   public function store(Request $request) {
+    //dd($request->file('post_img'));
     $incomingFields = $request->validate([
-      'post_category' => ['required'],
-      'post_title' => ['required'],
-      'post_content' => ['required']
+      'category' => ['required'],
+      'title' => ['required'],
+      'content' => ['required'],
+      'bg_img' => ['required', 'image', 'mimes:jpeg,jpg,png,gif', 'max:8192']
     ]);
-    //dd($incomingFields);
+
     //dont store script tags
-    $incomingFields['post_category'] = strip_tags($incomingFields['post_category']);
-    $incomingFields['post_title'] = strip_tags($incomingFields['post_title']);
-    $incomingFields['post_content'] = strip_tags($incomingFields['post_content']); 
+    $incomingFields['category'] = strip_tags($incomingFields['category']);
+    $incomingFields['title'] = strip_tags($incomingFields['title']);
+    $incomingFields['content'] = strip_tags($incomingFields['content']); 
+
+    if ($request->hasFile('bg_img')) {
+      $imagePath = $request->file('bg_img')->store('posts', 'public');
+      $incomingFields['bg_img'] = $imagePath;
+    }
 
     //get user id
     $incomingFields['user_id'] = auth()->id();
+    $incomingFields['author'] = auth()->user()->name;
     Post::create($incomingFields);
     return redirect('/'); 
+  }
+  public function show() {
+    return view('posts.single-post');
   }
 }
