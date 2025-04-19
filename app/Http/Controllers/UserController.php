@@ -14,5 +14,13 @@ class UserController extends Controller
     return view('pages.profile');
   }
 
+  public function index() {
+
+  }
+
+  public function show() {
+    
+  }
+
 
 }
