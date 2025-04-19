@@ -6,7 +6,7 @@
       <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5 col-xxl-4">
         <div class="mb-5">
           <div class="text-center mb-4">
-            <a href="{{ route('login.create') }}">
+            <a href="{{ route('login') }}">
               <img src="{{ asset('storage/logo.png') }}" alt="logo" width="175" height="57">
             </a>
           </div>
