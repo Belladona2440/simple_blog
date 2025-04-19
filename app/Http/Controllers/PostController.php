@@ -28,7 +28,7 @@ class PostController extends Controller
     //dont store script tags
     $incomingFields['category'] = strip_tags($incomingFields['category']);
     $incomingFields['title'] = strip_tags($incomingFields['title']);
-    $incomingFields['content'] = strip_tags($incomingFields['content']); 
+    //$incomingFields['content'] = strip_tags($incomingFields['content']); 
 
     if ($request->hasFile('bg_img')) {
       $imagePath = $request->file('bg_img')->store('posts', 'public');
@@ -41,7 +41,19 @@ class PostController extends Controller
     Post::create($incomingFields);
     return redirect('/'); 
   }
-  public function show() {
-    return view('posts.single-post');
+
+  public function upload() {
+    
+  }
+  public function show($id) {
+    $post = Post::findOrFail($id);
+
+    return view('posts.single-post', compact('post'));
+  }
+
+  public function display() {
+    //$posts = Post::latest()->paginate(9);
+    $posts = Post::where('user_id', auth()->id())->latest()->paginate(9);
+    return view('posts.my-posts', compact('posts'));
   }
 }
