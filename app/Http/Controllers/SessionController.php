@@ -13,7 +13,7 @@ use function PHPUnit\Framework\throwException;
 
 class SessionController extends Controller
 {
-  public function create() {
+  public function login() {
     return view('auth.login');
   }
 
@@ -37,6 +37,6 @@ class SessionController extends Controller
   public function destroy() {
     Auth::logout();
 
-    return redirect('/');
+    return redirect('/')->with('logoutSuccess', 'You have been logged out');
   }
 }
