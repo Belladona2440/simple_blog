@@ -9,13 +9,13 @@
           <ul class="navbar-nav ms-auto py-4 py-lg-0">
               <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ route('home') }}">Home</a></li>
               @auth
-              <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ route('post.create') }}">My posts</a></li>
+              <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ route('my-posts.display') }}">My posts</a></li>
               <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="post.html">Bloggers</a></li>
               <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ route('profile') }}">Profile</a></li>
               @endauth
           </ul>
           @guest
-          <form action="{{ route('login.create') }}" method="get">
+          <form action="{{ route('login') }}" method="get">
             @csrf
             <x-form-button>
               Sign in
@@ -25,7 +25,7 @@
           @auth
           <form action="{{ route('logout') }}" method="post">
             @csrf
-            <x-form-button onclick="confirmLogout()">
+            <x-form-button>
               Logout
             </x-form-button>
           </form>
