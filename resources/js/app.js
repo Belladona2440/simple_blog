@@ -5,34 +5,20 @@ import * as bootstrap from 'bootstrap';
 import Swal from 'sweetalert2';
 //window.Swal = Swal; //use globally
 
-window.confirmLogout = function () {
-  Swal.fire({
-    title: 'Are you sure?',
-    text: "You will be logged out.",
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonText: 'Yes, logout',
-    cancelButtonText: 'Cancel'
-  }).then((result) => {
-    if (result.isConfirmed) {
-      document.getElementById('logout-form').submit();
+if (window.LogoutSuccess) {
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.onmouseenter = Swal.stopTimer;
+      toast.onmouseleave = Swal.resumeTimer;
     }
   });
-}
-
-  function previewImage(event) {
-    const input = event.target;
-    const preview = document.getElementById('imagePreview');
-
-    if (input.files && input.files[0]) {
-      const reader = new FileReader();
-      
-      reader.onload = function(e) {
-        preview.src = e.target.result;
-        preview.style.display = 'block';
-      };
-
-      reader.readAsDataURL(input.files[0]);
-    }
-  }
-
+  Toast.fire({
+    icon: "success",
+    title: "Signed in successfully"
+  });
+} 
