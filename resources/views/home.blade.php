@@ -40,7 +40,7 @@
                     </div>
                     <p>{{ Str::limit($post->content, 100, '...')}}</p>
                     <hr>
-                    <x-post-readmore></x-post-readmore>
+                    <x-post-readmore :post="$post"/>
                   </div>
                 </article>
               </div>
@@ -58,7 +58,7 @@
           <div class="recent-posts-widget widget-item">
             <h3 class="widget-title">Recent Posts</h3>
             <div class="post-item">
-              <img src="{{ asset('storage/blog-img.jpg') }}" alt="" class="flex-shrink-0">
+              <img src="{{ asset('storage/media') }}" alt="" class="flex-shrink-0">
               <div>
                 <h4><a href="blog-details.html">Nihil blanditiis at in nihil autem</a></h4>
                 <time datetime="2020-01-01">Jan 1, 2020</time>
