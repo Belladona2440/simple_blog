@@ -44,7 +44,7 @@
           </div>
         </div>
         <div class="d-flex gap-2 gap-md-4 flex-column flex-md-row justify-content-md-center mt-4">
-          <p>Already have an account?<a href="{{ route('login.create') }}" class="link-secondary text-decoration-none"> Sign in.</a></p>
+          <p>Already have an account?<a href="{{ route('login') }}" class="link-secondary text-decoration-none"> Sign in.</a></p>
         </div>
       </div>
     </div>
