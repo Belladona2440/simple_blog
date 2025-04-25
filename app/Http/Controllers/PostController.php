@@ -18,7 +18,7 @@ class PostController extends Controller
 
   public function store(Request $request) {
     //dd($request->file('post_img'));
-    $incomingFields = $request->validate([
+    $validated = $request->validate([
       'category' => ['required'],
       'title' => ['required'],
       'content' => ['required'],
@@ -26,28 +26,25 @@ class PostController extends Controller
     ]);
 
     //dont store script tags
-    $incomingFields['category'] = strip_tags($incomingFields['category']);
-    $incomingFields['title'] = strip_tags($incomingFields['title']);
-    //$incomingFields['content'] = strip_tags($incomingFields['content']); 
+    $validated['category'] = strip_tags($validated['category']);
+    $validated['title'] = strip_tags($validated['title']);
+    $validated['content'] = strip_tags($validated['content']); 
 
     if ($request->hasFile('bg_img')) {
       $imagePath = $request->file('bg_img')->store('posts', 'public');
-      $incomingFields['bg_img'] = $imagePath;
+      $validated['bg_img'] = $imagePath;
     }
 
     //get user id
-    $incomingFields['user_id'] = auth()->id();
-    $incomingFields['author'] = auth()->user()->name;
-    Post::create($incomingFields);
+    $validated['user_id'] = auth()->id();
+    $validated['author'] = auth()->user()->name;
+    Post::create($validated);
     return redirect('/'); 
   }
 
-  public function upload() {
-    
-  }
   public function show($id) {
     $post = Post::findOrFail($id);
-
+    
     return view('posts.single-post', compact('post'));
   }
 
@@ -56,4 +53,46 @@ class PostController extends Controller
     $posts = Post::where('user_id', auth()->id())->latest()->paginate(9);
     return view('posts.my-posts', compact('posts'));
   }
+
+  public function edit(Post $post) {
+    //$post = Post::findOrFail($id);
+    return view('posts.edit', compact('post'));
+  }
+
+  public function update(Request $request, Post $post) {
+    $validated = $request->validate([
+      'category' => ['required'],
+      'title' => ['required'],
+      'content' => ['required'],
+      'bg_img' => ['nullable', 'image', 'mimes:jpeg,jpg,png,gif', 'max:8192']
+    ]);
+
+    //dont store script tags
+    $validated['category'] = strip_tags($validated['category']);
+    $validated['title'] = strip_tags($validated['title']);
+    $validated['content'] = strip_tags($validated['content']); 
+
+    if ($request->hasFile('bg_img')) {
+      $imagePath = $request->file('bg_img')->store('posts', 'public');
+      $validated['bg_img'] = $imagePath;
+    } else {
+      unset($validated['bg_img']);
+    }
+
+    //get user id
+    $validated['user_id'] = auth()->id();
+    $validated['author'] = auth()->user()->name;
+
+    $post->update($validated);
+
+    return view('posts.single-post', compact('post')); 
+  }
+
+  public function destroy(Post $post) {
+    $post->delete();
+
+    //return redirect()->route('my-posts.display');
+    return redirect()->back()->with('message', 'Deleted successfully');
+  }
+
 }
