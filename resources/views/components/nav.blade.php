@@ -25,7 +25,7 @@
           @auth
           <form action="{{ route('logout') }}" method="post">
             @csrf
-            <x-form-button>
+            <x-form-button class="btn-dark">
               Logout
             </x-form-button>
           </form>
