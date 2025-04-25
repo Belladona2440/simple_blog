@@ -1,19 +1,8 @@
 @extends('layouts.app')
 @section('content')
-@include('partials.header')
+@include('partials.page-header')
 <main class="main">
-  <div class="page-title position-relative">
-    <div class="container d-flex justify-content-between align-items-center">
-      <h1 class="mb-0">Posts</h1>
-      <form action="" class="d-flex align-items-center gap-2">
-        <h3 class="widget-title mb-0">Search</h3>
-        <input type="text" class="form-control" placeholder="Search">
-        <button type="submit" class="btn btn-dark" title="Search">
-          <i class="bi bi-search"></i>
-        </button>
-      </form>
-    </div>
-  </div>
+  @include('partials.posts-header')
   <div class="container">
     <div class="row">
       <div class="col-lg-8">
@@ -28,7 +17,7 @@
                     <span class="post-date">{{ $post->created_at->format('F j, Y') }}</span>
                   </div>
                   <div class="post-content d-flex flex-column">
-                    <h3 class="post-title">{{ Str::limit($post->title, 50, '...') }}</h3>
+                    <h3 class="post-title">{{ Str::limit($post->title, 30, '...') }}</h3>
                     <div class="meta d-flex align-items-center">
                       <div class="d-flex align-items-center">
                         <i class="bi bi-person"></i> <span class="ps-2">{{ $post['author'] }}</span>
@@ -38,9 +27,20 @@
                         <i class="bi bi-folder2"></i> <span class="ps-2">{{ $post['category'] }}</span>
                       </div>
                     </div>
-                    <p>{{ Str::limit($post->content, 100, '...')}}</p>
+                    <p>{{ Str::limit($post->content, 130, '...')}}</p>
                     <hr>
-                    <x-post-readmore :post="$post"/>
+                    <div class="d-flex align-items-center justify-content-between">
+                      <x-post-readmore :post="$post"/>
+                      <div class="d-flex gap-2">
+                        <a href="{{ route('post.update', [$post->id]) }}" class="btn btn-primary"><i class="bi bi-pencil"></i></a>
+                        <form action="{{ route('post.destroy', [$post->id]) }}" method="post">
+                          @csrf
+                          @method('DELETE')
+                          <x-form-button class="btn-danger"><i class="bi bi-trash3"></i></x-form-button>
+                        </form>
+                        {{-- <a href="{{ route('post.destroy', [$post->id]) }}" class="btn btn-warning"><i class="bi bi-trash3"></i></a> --}}
+                      </div>
+                    </div>
                   </div>
                 </article>
               </div>
@@ -54,7 +54,6 @@
       </div>
       <div class="col-lg-4 sidebar">
         <div class="widgets-container">
-          <!-- Recent Posts Widget -->
           <div class="recent-posts-widget widget-item">
             <h3 class="widget-title">Recent Posts</h3>
             <div class="post-item">
@@ -63,8 +62,8 @@
                 <h4><a href="blog-details.html">Nihil blanditiis at in nihil autem</a></h4>
                 <time datetime="2020-01-01">Jan 1, 2020</time>
               </div>
-            </div><!-- End recent post item-->
-          </div><!--/Recent Posts Widget -->
+            </div>
+          </div>
         </div>
       </div>
     </div>
