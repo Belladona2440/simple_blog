@@ -26,7 +26,7 @@
         <x-form-checkbox name="remember_me" id="remember_me" for="remember_me" label="Post anonymously" />
         <div class="col-12">
           <div class="d-grid">
-            <x-form-button>Add Post</x-form-button>
+            <x-form-button class="btn-dark">Add Post</x-form-button>
           </div>
         </div>
       </div>
