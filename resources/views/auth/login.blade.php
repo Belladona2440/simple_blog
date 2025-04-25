@@ -16,7 +16,7 @@
             <form action="{{ route('login.store') }}" method="POST">
               @csrf
               <div class="row gy-3 overflow-hidden">
-                <h4 class="text-center mb-4">Mag sign in ka na</h4>
+                <h4 class="text-center mb-4">Sign in ka muna</h4>
                 <x-form-field>
                   <x-form-floating type="email" name="email" id="email" placeholder="choi@kupal.com" label="Email" value="{{ old('email') }}" />
                   <x-form-error name="email" />
@@ -27,7 +27,7 @@
                 <x-form-checkbox name="remember_me" id="remember_me" for="remember_me" label="Keep me signed in" />
                 <div class="col-12">
                   <div class="d-grid">
-                    <x-form-button>Sign in</x-form-button>
+                    <x-form-button class="btn-dark">Sign in</x-form-button>
                   </div>
                 </div>
               </div>
