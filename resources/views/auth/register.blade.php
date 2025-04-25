@@ -36,7 +36,7 @@
                 <x-form-checkbox name="remember_me" id="remember_me" for="remember_me" label="Keep me signed in" />
                 <div class="col-12">
                   <div class="d-grid">
-                    <x-form-button>Register</x-form-button>
+                    <x-form-button class="btn-dark">Register</x-form-button>
                   </div>
                 </div>
               </div>
