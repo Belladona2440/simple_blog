@@ -30,5 +30,6 @@
           console.error(error);
         });
     </script> --}}  
+    @include('sweetalert::alert')
   </body>
 </html>
