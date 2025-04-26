@@ -35,7 +35,7 @@
                         <form action="{{ route('post.destroy', [$post->id]) }}" method="post">
                           @csrf
                           @method('DELETE')
-                          <x-form-button class="btn-danger"><i class="bi bi-trash3"></i></x-form-button>
+                          <x-form-button class="btn-danger" data-confirm-delete="true"><i class="bi bi-trash3"></i></x-form-button>
                         </form>
                         {{-- <a href="{{ route('post.destroy', [$post->id]) }}" class="btn btn-warning"><i class="bi bi-trash3"></i></a> --}}
                       </div>
