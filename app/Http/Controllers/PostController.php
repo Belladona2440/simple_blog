@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
+use RealRashid\SweetAlert\Toaster;
+
+//use Alert;
 
 class PostController extends Controller
 {
@@ -39,6 +43,8 @@ class PostController extends Controller
     $validated['user_id'] = auth()->id();
     $validated['author'] = auth()->user()->name;
     Post::create($validated);
+    //Alert::success('Successfully created', 'Your blog is now posted');
+    toast('Your blog has been posted!', 'success');
     return redirect('/'); 
   }
 
@@ -92,7 +98,11 @@ class PostController extends Controller
     $post->delete();
 
     //return redirect()->route('my-posts.display');
-    return redirect()->back()->with('message', 'Deleted successfully');
+    //return redirect()->back()->with('message', 'Deleted successfully');
+    $title = "Delete blog post!";
+    $text = "Sure ka na ba?";
+    confirmDelete($title, $text);
+    return redirect()->back();
   }
 
 }
