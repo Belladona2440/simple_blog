@@ -17,7 +17,7 @@
           @guest
           <form action="{{ route('login') }}" method="get">
             @csrf
-            <x-form-button>
+            <x-form-button class="btn-dark">
               Sign in
             </x-form-button>
           </form>
