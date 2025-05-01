@@ -31,16 +31,18 @@
                     <hr>
                     <div class="d-flex align-items-center justify-content-between">
                       <x-post-readmore :post="$post"/>
+                      @auth
                       <div class="d-flex gap-2">
                         <a href="{{ route('post.update', [$post->id]) }}" class="btn btn-primary"><i class="bi bi-pencil"></i></a>
                         <form action="{{ route('post.destroy', [$post->id]) }}" method="post">
                           @csrf
                           @method('DELETE')
-                          {{-- <x-form-button class="btn-danger" data-confirm-delete="true"><i class="bi bi-trash3"></i></x-form-button> --}}
-                          <button type="submit" data-confirm-delete="true"><i class="bi bi-trash3"></i></button>
+                          <x-form-button class="btn-danger"><i class="bi bi-trash3"></i></x-form-button> 
+                          {{-- <button type="submit" class="btn"><i class="bi bi-trash3"></i></button> --}}
                         </form>
                         {{-- <a href="{{ route('post.destroy', [$post->id]) }}" class="btn btn-warning"><i class="bi bi-trash3"></i></a> --}}
                       </div>
+                      @endauth
                     </div>
                   </div>
                 </article>
