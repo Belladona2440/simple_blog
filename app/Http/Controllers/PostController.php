@@ -4,13 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use App\Policies\PostPolicy;
+use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
 use RealRashid\SweetAlert\Toaster;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 //use Alert;
 
 class PostController extends Controller
 {
+  use AuthorizesRequests;
   public function index() {
     $posts = Post::latest()->paginate(4);
     //$posts = Post::orderBy('created_at', 'desc')->paginate(4);
@@ -62,10 +66,16 @@ class PostController extends Controller
 
   public function edit(Post $post) {
     //$post = Post::findOrFail($id);
+    /* if (Auth::guest()) {
+      return redirect('/login');
+    } */
+   $this->authorize('update', $post);
     return view('posts.edit', compact('post'));
   }
 
   public function update(Request $request, Post $post) {
+    $this->authorize('update', $post);
+
     $validated = $request->validate([
       'category' => ['required'],
       'title' => ['required'],
@@ -95,13 +105,15 @@ class PostController extends Controller
   }
 
   public function destroy(Post $post) {
+    $this->authorize('delete', $post);
     $post->delete();
 
     //return redirect()->route('my-posts.display');
     //return redirect()->back()->with('message', 'Deleted successfully');
-    $title = "Delete blog post!";
-    $text = "Sure ka na ba?";
-    confirmDelete($title, $text);
+    // $title = "Delete blog post!";
+    // $text = "Sure ka na ba?";
+    // confirmDelete($title, $text);
+
     return redirect()->back();
   }
 
