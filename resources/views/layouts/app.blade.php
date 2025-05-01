@@ -6,14 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     {{-- <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>  --}}
     <title>Document</title>
-    @if (session('logoutSuccess'))
-      <script>
-        window.logoutSuccess = "{{ session('logoutSuccess') }}";
-      </script>
-    @endif
+
     @vite('resources/js/app.js')
   </head>
   <body>
+    @include('sweetalert::alert')
     <x-nav></x-nav>
       @yield('content')
     <x-footer></x-footer>
@@ -30,6 +27,26 @@
           console.error(error);
         });
     </script> --}}  
-    @include('sweetalert::alert')
+    <script>
+          function confirmDelete() {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire({
+            title: "Deleted!",
+            text: "Your file has been deleted.",
+            icon: "success"
+          });
+        }
+      });
+    }
+    </script>
   </body>
 </html>
