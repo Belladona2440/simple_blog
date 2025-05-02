@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\CKEditorController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
@@ -26,5 +28,11 @@ Route::get('/posts/{id}', [PostController::class, 'show'])->name('post.show')->m
 Route::get('/posts/{post}/edit', [PostController::class, 'edit'])->name('post.edit')->middleware('auth');
 Route::put('/posts/{post}/edit', [PostController::class, 'update'])->name('post.update');
 Route::delete('/posts/{post}', [PostController::class, 'destroy'])->name('post.destroy');
+
+Route::get('/forgot-password', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLink'])->name('password.email');
+
+Route::get('/reset-password/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
+Route::post('/reset-password', [ResetPasswordController::class, 'reset'])->name('password.update');
 
 Route::post('/ckeditor/upload', [CKEditorController::class, 'upload'])->name('ckeditor.upload');
