@@ -24,7 +24,7 @@
                 <x-form-field>
                   <x-form-floating type="password" name="password" id="password" placeholder="Password" label="Password" />
                 </x-form-field>
-                <x-form-checkbox name="remember_me" id="remember_me" for="remember_me" label="Keep me signed in" />
+                {{-- <x-form-checkbox name="remember_me" id="remember_me" for="remember_me" label="Keep me signed in" /> --}}
                 <div class="col-12">
                   <div class="d-grid">
                     <x-form-button class="btn-dark">Sign in</x-form-button>
@@ -35,8 +35,8 @@
           </div>
         </div>
         <div class="d-flex gap-2 gap-md-4 flex-column flex-md-row justify-content-md-center mt-4">
-          <a href="{{ route('register.create') }}" class="link-secondary text-decoration-none">Create new account</a>
-          <a href="#!" class="link-secondary text-decoration-none">Forgot password</a>
+          <a href="{{ route('register.create') }}" class="link-secondary text-decoration-none">Create account</a>
+          <a href="{{ route('password.request') }}" class="link-secondary text-decoration-none">Forgot password</a>
         </div>
       </div>
     </div>
