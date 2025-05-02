@@ -33,7 +33,7 @@
                   <x-form-floating type="password" name="password_confirmation" id="password_confirmation" placeholder="Confirm password" label="Confirm password" />
                   <x-form-error name="password_confirmation" />
                 </x-form-field>
-                <x-form-checkbox name="remember_me" id="remember_me" for="remember_me" label="Keep me signed in" />
+                {{-- <x-form-checkbox name="remember_me" id="remember_me" for="remember_me" label="Keep me signed in" /> --}}
                 <div class="col-12">
                   <div class="d-grid">
                     <x-form-button class="btn-dark">Register</x-form-button>
