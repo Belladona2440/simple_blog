@@ -29,7 +29,8 @@ class RegisterController extends Controller
     //login 
     Auth::login($user);
     //redirect to dashboard
-    return redirect('/')->with('message', 'Account created successfully');
+    toast('Registered successfully', 'Success');
+    return redirect('/');
   }
 
 }
