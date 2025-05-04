@@ -15,13 +15,19 @@
           <div class="card-body p-3 p-md-4 p-xl-5">
             <form action="{{ route('password.update') }}" method="POST">
               @csrf
+              <input type="hidden" name="token" value="{{ request()->route('token') }}">
               <div class="row gy-3 overflow-hidden">
                 <h4 class="text-center mb-4">Reset Password</h4>
                 <x-form-field>
-                  <x-form-floating type="password" name="new_password" id="new_password" placeholder="New Password" label="New Password" />
+                  <x-form-floating type="email" name="email" id="email" placeholder="Email" label="Email" />
                 </x-form-field>
                 <x-form-field>
-                  <x-form-floating type="password_confirmation" name="password_confirmation" id="password_confirmation" placeholder="Confirm Password" label="Confirm Password"></x-form-floating>
+                  <x-form-floating type="password" name="password" id="password" placeholder="New Password" label="New Password" />
+                  <x-form-error name="password" />
+                </x-form-field>
+                <x-form-field>
+                  <x-form-floating type="password" name="password_confirmation" id="password_confirmation" placeholder="Confirm Password" label="Confirm Password" />
+                  <x-form-error name="password_confirmation" />
                 </x-form-field>
                 <div class="col-12">
                   <div class="d-grid">
