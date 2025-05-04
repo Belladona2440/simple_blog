@@ -15,6 +15,7 @@
           <div class="card-body p-3 p-md-4 p-xl-5">
             <form action="{{ route('login.store') }}" method="POST">
               @csrf
+              <x-success-message></x-success-message>
               <div class="row gy-3 overflow-hidden">
                 <h4 class="text-center mb-4">Sign in ka muna</h4>
                 <x-form-field>
@@ -23,6 +24,7 @@
                 </x-form-field>
                 <x-form-field>
                   <x-form-floating type="password" name="password" id="password" placeholder="Password" label="Password" />
+                  <x-form-error name="password" />
                 </x-form-field>
                 {{-- <x-form-checkbox name="remember_me" id="remember_me" for="remember_me" label="Keep me signed in" /> --}}
                 <div class="col-12">
