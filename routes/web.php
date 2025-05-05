@@ -36,3 +36,20 @@ Route::get('/reset-password/{token}', [ResetPasswordController::class, 'showRese
 Route::post('/reset-password', [ResetPasswordController::class, 'reset'])->name('password.update');
 
 Route::post('/ckeditor/upload', [CKEditorController::class, 'upload'])->name('ckeditor.upload');
+
+/* Route::get('/email', function() {
+  return view('mail.password-reset-email');
+  });  */
+
+  Route::get('/email', function () {
+    $user = \App\Models\User::first(); // Example user
+    $token = Illuminate\Support\Facades\Password::createToken($user);
+
+    return view('mail.password-reset-email', [
+        'user' => $user,
+        'resetUrl' => url(route('password.reset', [
+            'token' => $token,
+            'email' => $user->email,
+        ], false))
+    ]);
+});
