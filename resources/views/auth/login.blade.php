@@ -15,9 +15,9 @@
           <div class="card-body p-3 p-md-4 p-xl-5">
             <form action="{{ route('login.store') }}" method="POST">
               @csrf
-              <x-success-message></x-success-message>
               <div class="row gy-3 overflow-hidden">
                 <h4 class="text-center mb-4">Sign in ka muna</h4>
+                <x-message />
                 <x-form-field>
                   <x-form-floating type="email" name="email" id="email" placeholder="choi@kupal.com" label="Email" value="{{ old('email') }}" />
                   <x-form-error name="email" />
