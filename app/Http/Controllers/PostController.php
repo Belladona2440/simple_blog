@@ -46,7 +46,7 @@ class PostController extends Controller
     //get user id
     $validated['user_id'] = auth()->id();
     $validated['author'] = auth()->user()->name;
-    Post::create($validated);
+    $post = Post::create($validated);
     //Alert::success('Successfully created', 'Your blog is now posted');
     toast('Your blog has been posted!', 'success');
     return redirect('/'); 
